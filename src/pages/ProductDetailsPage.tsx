@@ -13,6 +13,7 @@ import { cartService } from "@/services/cart.service";
 import { wishlistService } from "@/services/wishlist.service";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductCardSkeleton } from "@/components/products/ProductCardSkeleton";
+import { ProductReviews } from "@/components/products/ProductReviews";
 import { cn } from "@/lib/utils";
 
 export default function ProductDetailsPage() {
@@ -298,6 +299,13 @@ export default function ProductDetailsPage() {
           </div>
         </div>
       </div>
+
+      {/* Product Reviews */}
+      <ProductReviews
+        productId={product._id}
+        ratingsAverage={product.ratingsAverage}
+        ratingsQuantity={product.ratingsQuantity}
+      />
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (

@@ -6,14 +6,12 @@ import {
   User,
   Menu,
   X,
-  Search,
   LogOut,
   Package,
   MapPin,
   Settings,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,6 +22,8 @@ import {
 import { useAuthStore } from "@/store/auth.store";
 import { useCartStore } from "@/store/cart.store";
 import { useWishlistStore } from "@/store/wishlist.store";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { SearchAutocomplete } from "@/components/SearchAutocomplete";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -35,20 +35,11 @@ const navLinks = [
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const { isAuthenticated, user, logout } = useAuthStore();
   const { cartCount } = useCartStore();
   const { items: wishlistItems } = useWishlistStore();
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/products?keyword=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
-    }
-  };
 
   const handleLogout = () => {
     logout();
@@ -82,24 +73,12 @@ export function Navbar() {
         </nav>
 
         {/* Search Bar */}
-        <form
-          onSubmit={handleSearch}
-          className="hidden lg:flex items-center gap-2 flex-1 max-w-md mx-6"
-        >
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-muted/50"
-            />
-          </div>
-        </form>
+        <SearchAutocomplete className="hidden lg:flex flex-1 max-w-md mx-6" />
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          {/* Theme Toggle */}
+          <ThemeToggle />
           {/* Wishlist */}
           <Button variant="ghost" size="icon" asChild className="relative">
             <Link to="/wishlist">
@@ -202,18 +181,9 @@ export function Navbar() {
       >
         <div className="container pb-4 pt-2">
           {/* Mobile Search */}
-          <form onSubmit={handleSearch} className="mb-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-muted/50"
-              />
-            </div>
-          </form>
+          <div className="mb-4">
+            <SearchAutocomplete onSearch={() => setMobileMenuOpen(false)} />
+          </div>
 
           {/* Mobile Nav Links */}
           <nav className="flex flex-col gap-2">
