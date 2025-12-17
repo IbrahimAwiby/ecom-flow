@@ -22,7 +22,7 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
   // Debounce search query
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedQuery(query);
+      setDebouncedQuery(query.trim());
     }, 300);
     return () => clearTimeout(timer);
   }, [query]);
@@ -38,10 +38,12 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const effectiveQuery = debouncedQuery;
+
   const { data: suggestions, isLoading } = useQuery({
-    queryKey: ["products", "search", debouncedQuery],
-    queryFn: () => productsService.getAll({ keyword: debouncedQuery, limit: 5 }),
-    enabled: debouncedQuery.length >= 2,
+    queryKey: ["products", "search", effectiveQuery],
+    queryFn: () => productsService.getAll({ keyword: effectiveQuery, limit: 5 }),
+    enabled: isOpen && effectiveQuery.length >= 2,
   });
 
   const products = suggestions?.data || [];
@@ -74,18 +76,19 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
       <form onSubmit={handleSubmit}>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            ref={inputRef}
-            type="search"
-            placeholder="Search products..."
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setIsOpen(e.target.value.length >= 2);
-            }}
-            onFocus={() => query.length >= 2 && setIsOpen(true)}
-            className="pl-10 pr-10 bg-muted/50"
-          />
+            <Input
+              ref={inputRef}
+              type="search"
+              placeholder="Search products..."
+              value={query}
+              onChange={(e) => {
+                const next = e.target.value;
+                setQuery(next);
+                setIsOpen(next.trim().length >= 2);
+              }}
+              onFocus={() => query.trim().length >= 2 && setIsOpen(true)}
+              className="pl-10 pr-10 bg-muted/50"
+            />
           {query && (
             <button
               type="button"
@@ -101,10 +104,12 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
       {/* Suggestions Dropdown */}
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-2 rounded-lg border border-border bg-popover shadow-elevated z-50 overflow-hidden">
-          {isLoading ? (
+          {query.trim().length < 2 ? (
             <div className="p-4 text-center text-sm text-muted-foreground">
-              Searching...
+              Type at least 2 characters to search.
             </div>
+          ) : isLoading ? (
+            <div className="p-4 text-center text-sm text-muted-foreground">Searching...</div>
           ) : products.length > 0 ? (
             <ul className="py-2">
               {products.map((product) => (
@@ -116,7 +121,8 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
                   >
                     <img
                       src={product.imageCover}
-                      alt=""
+                      alt={`Product image: ${product.title}`}
+                      loading="lazy"
                       className="h-10 w-10 rounded object-cover"
                     />
                     <div className="flex-1 min-w-0">
@@ -131,18 +137,18 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
               <li className="border-t border-border mt-2 pt-2">
                 <button
                   type="button"
-                  onClick={handleSubmit}
+                  onClick={(e) => handleSubmit(e as unknown as React.FormEvent)}
                   className="w-full px-4 py-2 text-sm text-primary hover:bg-muted transition-colors text-center"
                 >
-                  View all results for "{query}"
+                  View all results for "{query.trim()}"
                 </button>
               </li>
             </ul>
-          ) : debouncedQuery.length >= 2 ? (
+          ) : (
             <div className="p-4 text-center text-sm text-muted-foreground">
               No products found for "{debouncedQuery}"
             </div>
-          ) : null}
+          )}
         </div>
       )}
     </div>
