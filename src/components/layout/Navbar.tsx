@@ -76,15 +76,17 @@ export function Navbar() {
         <SearchAutocomplete className="hidden lg:flex flex-1 max-w-md mx-6" />
 
         {/* Actions */}
-        <div className="flex items-center gap-1 sm:gap-2">
-          {/* Theme Toggle */}
-          <ThemeToggle />
+        <div className="flex items-center gap-0.5 xs:gap-1 sm:gap-2">
+          {/* Theme Toggle - hidden on very small screens */}
+          <div className="hidden xs:block">
+            <ThemeToggle />
+          </div>
           {/* Wishlist */}
-          <Button variant="ghost" size="icon" asChild className="relative">
+          <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 sm:h-10 sm:w-10">
             <Link to="/wishlist">
-              <Heart className="h-5 w-5" />
+              <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
               {wishlistItems.length > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-secondary-foreground">
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-secondary text-[9px] sm:text-[10px] font-bold text-secondary-foreground">
                   {wishlistItems.length}
                 </span>
               )}
@@ -92,11 +94,11 @@ export function Navbar() {
           </Button>
 
           {/* Cart */}
-          <Button variant="ghost" size="icon" asChild className="relative">
+          <Button variant="ghost" size="icon" asChild className="relative h-9 w-9 sm:h-10 sm:w-10">
             <Link to="/cart">
-              <ShoppingCart className="h-5 w-5" />
+              <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
               {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-primary text-[9px] sm:text-[10px] font-bold text-primary-foreground">
                   {cartCount}
                 </span>
               )}
@@ -160,13 +162,13 @@ export function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden h-9 w-9 sm:h-10 sm:w-10"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4 sm:h-5 sm:w-5" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
             )}
           </Button>
         </div>

@@ -76,18 +76,19 @@ export default function CartPage() {
   const cartItems = cart?.products || [];
 
   return (
-    <div className="container py-8">
-      <div className="mb-8 flex items-center justify-between">
+    <div className="container py-6 sm:py-8">
+      <div className="mb-6 sm:mb-8 flex flex-col xs:flex-row xs:items-center xs:justify-between gap-4">
         <div className="flex items-center gap-3">
-          <ShoppingCart className="h-8 w-8 text-primary" />
+          <ShoppingCart className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
           <div>
-            <h1 className="font-display text-3xl font-bold">Shopping Cart</h1>
-            <p className="text-muted-foreground">{cartItems.length} items</p>
+            <h1 className="font-display text-2xl sm:text-3xl font-bold">Shopping Cart</h1>
+            <p className="text-sm sm:text-base text-muted-foreground">{cartItems.length} items</p>
           </div>
         </div>
         {cartItems.length > 0 && (
           <Button
             variant="outline"
+            size="sm"
             onClick={() => clearMutation.mutate()}
             disabled={clearMutation.isPending}
           >
@@ -111,13 +112,13 @@ export default function CartPage() {
       ) : (
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3 sm:space-y-4">
             {cartItems.map((item) => (
               <Card key={item._id} className="overflow-hidden">
-                <div className="flex">
+                <div className="flex flex-col xs:flex-row">
                   <Link
                     to={`/products/${item.product._id}`}
-                    className="aspect-square h-32 w-32 shrink-0 overflow-hidden bg-muted sm:h-40 sm:w-40"
+                    className="aspect-video xs:aspect-square h-auto xs:h-28 sm:h-36 w-full xs:w-28 sm:w-36 shrink-0 overflow-hidden bg-muted"
                   >
                     <img
                       src={item.product.imageCover}
@@ -125,53 +126,54 @@ export default function CartPage() {
                       className="h-full w-full object-cover"
                     />
                   </Link>
-                  <CardContent className="flex flex-1 flex-col justify-between p-4">
+                  <CardContent className="flex flex-1 flex-col justify-between p-3 sm:p-4">
                     <div>
                       <Link
                         to={`/products/${item.product._id}`}
-                        className="line-clamp-2 font-medium hover:text-primary"
+                        className="line-clamp-2 text-sm sm:text-base font-medium hover:text-primary"
                       >
                         {item.product.title}
                       </Link>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm text-muted-foreground">
                         {item.product.category?.name}
                       </p>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                    <div className="mt-3 sm:mt-0 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8"
+                          className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() =>
                             handleUpdateQuantity(item.product._id, item.count, -1)
                           }
                           disabled={updateMutation.isPending}
                         >
-                          <Minus className="h-4 w-4" />
+                          <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
-                        <span className="w-8 text-center font-medium">
+                        <span className="w-6 sm:w-8 text-center text-sm sm:text-base font-medium">
                           {item.count}
                         </span>
                         <Button
                           variant="outline"
                           size="icon"
-                          className="h-8 w-8"
+                          className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() =>
                             handleUpdateQuantity(item.product._id, item.count, 1)
                           }
                           disabled={updateMutation.isPending}
                         >
-                          <Plus className="h-4 w-4" />
+                          <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <p className="text-lg font-bold text-primary">
+                      <div className="flex items-center gap-2 sm:gap-4">
+                        <p className="text-base sm:text-lg font-bold text-primary">
                           ${item.price * item.count}
                         </p>
                         <Button
                           variant="ghost"
                           size="icon"
+                          className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() => removeMutation.mutate(item.product._id)}
                           disabled={removeMutation.isPending}
                         >
