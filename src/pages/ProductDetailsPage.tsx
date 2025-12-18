@@ -155,19 +155,19 @@ export default function ProductDetailsPage() {
     : 0;
 
   return (
-    <div className="container py-8">
+    <div className="container py-4 sm:py-8">
       {/* Breadcrumbs */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-        <Link to="/" className="hover:text-foreground">Home</Link>
-        <ChevronRight className="h-4 w-4" />
-        <Link to="/products" className="hover:text-foreground">Products</Link>
-        <ChevronRight className="h-4 w-4" />
-        <span className="text-foreground">{product.title}</span>
+      <nav className="mb-4 sm:mb-6 flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-muted-foreground overflow-x-auto">
+        <Link to="/" className="hover:text-foreground whitespace-nowrap">Home</Link>
+        <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+        <Link to="/products" className="hover:text-foreground whitespace-nowrap">Products</Link>
+        <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
+        <span className="text-foreground truncate max-w-[120px] sm:max-w-none">{product.title}</span>
       </nav>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-6 sm:gap-8 lg:grid-cols-2">
         {/* Images */}
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <div className="aspect-square overflow-hidden rounded-lg bg-muted">
             <img
               src={images[selectedImage]}
@@ -181,7 +181,7 @@ export default function ProductDetailsPage() {
                 key={i}
                 onClick={() => setSelectedImage(i)}
                 className={cn(
-                  "h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                  "h-14 w-14 sm:h-20 sm:w-20 shrink-0 overflow-hidden rounded-lg border-2 transition-all",
                   selectedImage === i ? "border-primary" : "border-transparent"
                 )}
               >
@@ -192,9 +192,9 @@ export default function ProductDetailsPage() {
         </div>
 
         {/* Details */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Category & Brand */}
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
             <Link
               to={`/categories/${product.category._id}`}
               className="hover:text-primary"
@@ -211,30 +211,30 @@ export default function ProductDetailsPage() {
           </div>
 
           {/* Title */}
-          <h1 className="font-display text-3xl font-bold">{product.title}</h1>
+          <h1 className="font-display text-xl sm:text-2xl lg:text-3xl font-bold leading-tight">{product.title}</h1>
 
           {/* Rating */}
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1">
-              <Star className="h-5 w-5 fill-warning text-warning" />
-              <span className="font-medium">{product.ratingsAverage}</span>
+              <Star className="h-4 w-4 sm:h-5 sm:w-5 fill-warning text-warning" />
+              <span className="font-medium text-sm sm:text-base">{product.ratingsAverage}</span>
             </div>
-            <span className="text-muted-foreground">
+            <span className="text-muted-foreground text-xs sm:text-sm">
               ({product.ratingsQuantity} reviews)
             </span>
           </div>
 
           {/* Price */}
-          <div className="flex items-baseline gap-4">
-            <span className="text-4xl font-bold text-primary">
+          <div className="flex flex-wrap items-baseline gap-2 sm:gap-4">
+            <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">
               ${product.priceAfterDiscount || product.price}
             </span>
             {product.priceAfterDiscount && (
               <>
-                <span className="text-xl text-muted-foreground line-through">
+                <span className="text-base sm:text-xl text-muted-foreground line-through">
                   ${product.price}
                 </span>
-                <span className="rounded-full bg-destructive px-3 py-1 text-sm font-semibold text-destructive-foreground">
+                <span className="rounded-full bg-destructive px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm font-semibold text-destructive-foreground">
                   -{discount}%
                 </span>
               </>
@@ -242,10 +242,10 @@ export default function ProductDetailsPage() {
           </div>
 
           {/* Description */}
-          <p className="text-muted-foreground">{product.description}</p>
+          <p className="text-muted-foreground text-sm sm:text-base">{product.description}</p>
 
           {/* Stock */}
-          <p className="text-sm">
+          <p className="text-xs sm:text-sm">
             {product.quantity > 0 ? (
               <span className="text-success">In Stock ({product.quantity} available)</span>
             ) : (
@@ -254,46 +254,49 @@ export default function ProductDetailsPage() {
           </p>
 
           {/* Quantity */}
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium">Quantity:</span>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <span className="text-xs sm:text-sm font-medium">Quantity:</span>
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
                 size="icon"
+                className="h-8 w-8 sm:h-10 sm:w-10"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
               >
-                <Minus className="h-4 w-4" />
+                <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
-              <span className="w-12 text-center font-medium">{quantity}</span>
+              <span className="w-8 sm:w-12 text-center font-medium text-sm sm:text-base">{quantity}</span>
               <Button
                 variant="outline"
                 size="icon"
+                className="h-8 w-8 sm:h-10 sm:w-10"
                 onClick={() => setQuantity(Math.min(product.quantity, quantity + 1))}
               >
-                <Plus className="h-4 w-4" />
+                <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </div>
           </div>
 
           {/* Actions */}
-          <div className="flex gap-4">
+          <div className="flex gap-2 sm:gap-4">
             <Button
               size="lg"
-              className="flex-1"
+              className="flex-1 h-10 sm:h-12 text-sm sm:text-base"
               onClick={handleAddToCart}
               disabled={addToCartMutation.isPending || product.quantity === 0}
             >
-              <ShoppingCart className="mr-2 h-5 w-5" />
+              <ShoppingCart className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               Add to Cart
             </Button>
             <Button
               variant="outline"
               size="lg"
+              className="h-10 w-10 sm:h-12 sm:w-12 p-0"
               onClick={handleWishlistToggle}
               disabled={wishlistMutation.isPending}
             >
               <Heart
-                className={cn("h-5 w-5", inWishlist && "fill-current text-destructive")}
+                className={cn("h-4 w-4 sm:h-5 sm:w-5", inWishlist && "fill-current text-destructive")}
               />
             </Button>
           </div>
@@ -309,9 +312,9 @@ export default function ProductDetailsPage() {
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
-        <section className="mt-16">
-          <h2 className="mb-8 font-display text-2xl font-bold">Related Products</h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <section className="mt-8 sm:mt-16">
+          <h2 className="mb-4 sm:mb-8 font-display text-lg sm:text-2xl font-bold">Related Products</h2>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
             {relatedLoading
               ? Array.from({ length: 4 }).map((_, i) => <ProductCardSkeleton key={i} />)
               : relatedProducts.slice(0, 4).map((p) => (

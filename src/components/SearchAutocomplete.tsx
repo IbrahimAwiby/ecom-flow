@@ -42,8 +42,11 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
 
   const { data: suggestions, isLoading, isFetching } = useQuery({
     queryKey: ["products", "search", effectiveQuery],
-    queryFn: () => productsService.getAll({ keyword: effectiveQuery, limit: 5 }),
-    enabled: isOpen && effectiveQuery.length >= 2,
+    queryFn: async () => {
+      const result = await productsService.getAll({ keyword: effectiveQuery, limit: 5 });
+      return result;
+    },
+    enabled: effectiveQuery.length >= 2,
     staleTime: 1000 * 60, // 1 minute
   });
 
