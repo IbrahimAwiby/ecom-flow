@@ -11,13 +11,14 @@ import { cn } from "@/lib/utils";
 export default function OrdersPage() {
   const { isAuthenticated } = useAuthStore();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["orders"],
     queryFn: () => ordersService.getUserOrders(),
     enabled: isAuthenticated,
   });
 
-  const orders = data || [];
+  // Ensure orders is always an array
+  const orders = Array.isArray(data) ? data : [];
 
   const getStatusIcon = (order: typeof orders[0]) => {
     if (order.isDelivered) return <CheckCircle className="h-5 w-5 text-success" />;
