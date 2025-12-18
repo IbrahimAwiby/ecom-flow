@@ -9,12 +9,12 @@ import { ordersService } from "@/services/orders.service";
 import { cn } from "@/lib/utils";
 
 export default function OrdersPage() {
-  const { user } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   const { data, isLoading } = useQuery({
-    queryKey: ["orders", user?._id],
-    queryFn: () => ordersService.getUserOrders(user!._id),
-    enabled: !!user?._id,
+    queryKey: ["orders"],
+    queryFn: () => ordersService.getUserOrders(),
+    enabled: isAuthenticated,
   });
 
   const orders = data || [];

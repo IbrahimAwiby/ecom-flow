@@ -1,9 +1,9 @@
 import api from "./api";
-import type { OrdersResponse, Order, CreateOrderData, CheckoutSessionResponse } from "@/types";
+import type { Order, CreateOrderData, CheckoutSessionResponse } from "@/types";
 
 export const ordersService = {
-  getUserOrders: async (userId: string): Promise<Order[]> => {
-    const { data } = await api.get<Order[]>(`/orders/user/${userId}`);
+  getUserOrders: async (): Promise<Order[]> => {
+    const { data } = await api.get<Order[]>("/orders");
     return data;
   },
 

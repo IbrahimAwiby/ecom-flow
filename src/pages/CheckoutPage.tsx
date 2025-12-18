@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreditCard, Banknote, Loader2, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,7 @@ type CheckoutForm = z.infer<typeof checkoutSchema>;
 export default function CheckoutPage() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [paymentMethod, setPaymentMethod] = useState<"cash" | "card">("cash");
   const [selectedAddress, setSelectedAddress] = useState<string | null>(null);
   const { cart, cartId, clearCart } = useCartStore();
@@ -70,6 +71,8 @@ export default function CheckoutPage() {
       ordersService.createCashOrder(currentCartId!, { shippingAddress: { details: data.details!, phone: data.phone!, city: data.city! } }),
     onSuccess: () => {
       clearCart();
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
       toast({
         title: "Order placed!",
         description: "Your order has been placed successfully.",

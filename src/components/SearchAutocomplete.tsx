@@ -40,10 +40,11 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
 
   const effectiveQuery = debouncedQuery;
 
-  const { data: suggestions, isLoading } = useQuery({
+  const { data: suggestions, isLoading, isFetching } = useQuery({
     queryKey: ["products", "search", effectiveQuery],
     queryFn: () => productsService.getAll({ keyword: effectiveQuery, limit: 5 }),
     enabled: isOpen && effectiveQuery.length >= 2,
+    staleTime: 1000 * 60, // 1 minute
   });
 
   const products = suggestions?.data || [];
@@ -103,12 +104,12 @@ export function SearchAutocomplete({ className, onSearch }: SearchAutocompletePr
 
       {/* Suggestions Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 rounded-lg border border-border bg-popover shadow-elevated z-50 overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 rounded-lg border border-border bg-popover shadow-lg z-[100] overflow-hidden max-h-80 overflow-y-auto">
           {query.trim().length < 2 ? (
             <div className="p-4 text-center text-sm text-muted-foreground">
               Type at least 2 characters to search.
             </div>
-          ) : isLoading ? (
+          ) : isLoading || isFetching ? (
             <div className="p-4 text-center text-sm text-muted-foreground">Searching...</div>
           ) : products.length > 0 ? (
             <ul className="py-2">
