@@ -18,6 +18,7 @@ import CartPage from "@/pages/CartPage";
 import WishlistPage from "@/pages/WishlistPage";
 import CheckoutPage from "@/pages/CheckoutPage";
 import OrdersPage from "@/pages/OrdersPage";
+import OrderDetailsPage from "@/pages/OrderDetailsPage";
 import AddressesPage from "@/pages/AddressesPage";
 import ProfilePage from "@/pages/ProfilePage";
 import LoginPage from "@/pages/auth/LoginPage";
@@ -73,6 +74,9 @@ const App = () => (
             } />
             <Route path="/orders" element={
               <ProtectedRoute><OrdersPage /></ProtectedRoute>
+            } />
+            <Route path="/orders/:id" element={
+              <ProtectedRoute><OrderDetailsPage /></ProtectedRoute>
             } />
             <Route path="/addresses" element={
               <ProtectedRoute><AddressesPage /></ProtectedRoute>

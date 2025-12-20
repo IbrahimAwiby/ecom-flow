@@ -106,11 +106,6 @@ export function CategoriesSection() {
                     <h3 className="font-semibold text-sm sm:text-base group-hover:text-primary transition-colors">
                       {category.name}
                     </h3>
-                    {category.description && (
-                      <p className="text-xs text-muted-foreground line-clamp-2">
-                        {category.description}
-                      </p>
-                    )}
                     <div className="flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <div className="h-1 w-1 rounded-full bg-primary" />
                       <span className="text-xs text-primary font-medium">

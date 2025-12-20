@@ -51,6 +51,7 @@ export default function ProductDetailsPage() {
       setCart(data.data);
       setCartCount(data.numOfCartItems);
       setCartId(data.cartId);
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
       toast({
         title: "Added to cart",
         description: `${product!.title} has been added to your cart.`,
