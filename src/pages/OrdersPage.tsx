@@ -78,61 +78,63 @@ export default function OrdersPage() {
       ) : (
         <div className="space-y-4">
           {orders.map((order) => (
-            <Card key={order._id} className="overflow-hidden">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-muted/30 pb-3">
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Order #{order._id.slice(-8).toUpperCase()}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {new Date(order.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                </div>
-                <Badge
-                  variant="outline"
-                  className={cn("gap-1", getStatusColor(order))}
-                >
-                  {getStatusIcon(order)}
-                  {getStatusText(order)}
-                </Badge>
-              </CardHeader>
-              <CardContent className="p-4">
-                {/* Items Preview */}
-                <div className="flex gap-2 overflow-x-auto pb-3">
-                  {order.cartItems.slice(0, 4).map((item) => (
-                    <img
-                      key={item._id}
-                      src={item.product.imageCover}
-                      alt={item.product.title}
-                      className="h-16 w-16 shrink-0 rounded-lg object-cover"
-                    />
-                  ))}
-                  {order.cartItems.length > 4 && (
-                    <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-muted text-sm font-medium">
-                      +{order.cartItems.length - 4}
-                    </div>
-                  )}
-                </div>
-
-                {/* Order Details */}
-                <div className="flex items-center justify-between pt-3 border-t border-border">
+            <Link key={order._id} to={`/orders/${order._id}`}>
+              <Card className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-muted/30 pb-3 px-4 sm:px-6">
                   <div>
-                    <p className="text-sm text-muted-foreground">
-                      {order.cartItems.length} items •{" "}
-                      {order.paymentMethodType === "cash" ? "Cash on Delivery" : "Paid Online"}
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      Order #{order._id.slice(-8).toUpperCase()}
                     </p>
-                    <p className="text-lg font-bold text-primary">
-                      ${order.totalOrderPrice}
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(order.createdAt).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </p>
                   </div>
-                  <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                </div>
-              </CardContent>
-            </Card>
+                  <Badge
+                    variant="outline"
+                    className={cn("gap-1 text-xs", getStatusColor(order))}
+                  >
+                    {getStatusIcon(order)}
+                    <span className="hidden xs:inline">{getStatusText(order)}</span>
+                  </Badge>
+                </CardHeader>
+                <CardContent className="p-3 sm:p-4">
+                  {/* Items Preview */}
+                  <div className="flex gap-2 overflow-x-auto pb-3">
+                    {order.cartItems.slice(0, 4).map((item) => (
+                      <img
+                        key={item._id}
+                        src={item.product.imageCover}
+                        alt={item.product.title}
+                        className="h-12 w-12 sm:h-16 sm:w-16 shrink-0 rounded-lg object-cover"
+                      />
+                    ))}
+                    {order.cartItems.length > 4 && (
+                      <div className="flex h-12 w-12 sm:h-16 sm:w-16 shrink-0 items-center justify-center rounded-lg bg-muted text-xs sm:text-sm font-medium">
+                        +{order.cartItems.length - 4}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Order Details */}
+                  <div className="flex items-center justify-between pt-3 border-t border-border">
+                    <div>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
+                        {order.cartItems.length} items •{" "}
+                        {order.paymentMethodType === "cash" ? "COD" : "Paid"}
+                      </p>
+                      <p className="text-base sm:text-lg font-bold text-primary">
+                        ${order.totalOrderPrice}
+                      </p>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       )}
