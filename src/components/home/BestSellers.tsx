@@ -39,7 +39,7 @@ export function BestSellers() {
           </Button>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 md:gap-4 gap-2 md:grid-cols-4">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <ProductCardSkeleton key={i} />

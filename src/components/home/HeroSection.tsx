@@ -186,7 +186,7 @@ export function HeroSection() {
               </div>
 
               {/* Image Indicators */}
-              <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
                 {heroImages.map((_, index) => (
                   <button
                     key={index}
@@ -204,16 +204,16 @@ export function HeroSection() {
             </div>
 
             {/* Floating Badges */}
-            <div className="absolute -left-4 top-8 animate-bounce-subtle">
-              <div className="rounded-xl bg-gradient-to-br from-primary to-primary/80 p-4 shadow-xl">
+            <div className="absolute left-4 md:-left-4 top-8 animate-bounce-subtle">
+              <div className="rounded-xl bg-gradient-to-br from-primary to-primary/80 md:p-4 p-1 shadow-xl">
                 <Badge className="border-0 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm text-white">
-                  <span className="text-2xl font-bold">-30%</span>
+                  <span className="text-xl font-bold">-30%</span>
                   <span className="ml-1 text-xs">Today's Deal</span>
                 </Badge>
               </div>
             </div>
 
-            <div className="absolute -right-4 bottom-12 animate-bounce-subtle [animation-delay:0.3s]">
+            <div className="absolute hidden md:block right-4 bottom-12 animate-bounce-subtle [animation-delay:0.3s]">
               <div className="rounded-xl bg-gradient-to-br from-secondary to-secondary/80 p-4 shadow-xl">
                 <Badge className="border-0 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm text-white">
                   <Truck className="h-4 w-4 mr-1" />
@@ -223,7 +223,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="absolute -bottom-4 left-12 animate-bounce-subtle [animation-delay:0.6s]">
+            <div className="absolute hidden md:block -bottom-4 left-12 animate-bounce-subtle [animation-delay:0.6s]">
               <div className="rounded-xl bg-gradient-to-br from-success to-success/80 p-4 shadow-xl">
                 <Badge className="border-0 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-sm text-white">
                   <Shield className="h-4 w-4 mr-1" />

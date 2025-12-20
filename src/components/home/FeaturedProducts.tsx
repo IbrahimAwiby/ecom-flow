@@ -34,7 +34,7 @@ export function FeaturedProducts() {
           </Button>
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 md:gap-4 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {isLoading
             ? Array.from({ length: 8 }).map((_, i) => (
                 <ProductCardSkeleton key={i} />
