@@ -21,7 +21,9 @@ import { cn } from "@/lib/utils";
 
 const checkoutSchema = z.object({
   details: z.string().min(5, "Please enter your address"),
-  phone: z.string().regex(/^01[0125][0-9]{8}$/, "Please enter a valid phone number"),
+  phone: z
+    .string()
+    .regex(/^01[0125][0-9]{8}$/, "Please enter a valid phone number"),
   city: z.string().min(2, "City is required"),
 });
 
@@ -56,10 +58,11 @@ export default function CheckoutPage() {
 
   const addresses = addressesData?.data || [];
   const cartItems = cartData?.data?.products || cart?.products || [];
-  const totalPrice = cartData?.data?.totalCartPrice || cart?.totalCartPrice || 0;
+  const totalPrice =
+    cartData?.data?.totalCartPrice || cart?.totalCartPrice || 0;
   const currentCartId = cartData?.cartId || cartId;
 
-  const handleSelectAddress = (address: typeof addresses[0]) => {
+  const handleSelectAddress = (address: (typeof addresses)[0]) => {
     setSelectedAddress(address._id);
     setValue("details", address.details);
     setValue("phone", address.phone);
@@ -68,8 +71,15 @@ export default function CheckoutPage() {
 
   const cashOrderMutation = useMutation({
     mutationFn: (data: CheckoutForm) =>
-      ordersService.createCashOrder(currentCartId!, { shippingAddress: { details: data.details!, phone: data.phone!, city: data.city! } }),
-    onSuccess: () => {
+      ordersService.createCashOrder(currentCartId!, {
+        shippingAddress: {
+          details: data.details!,
+          phone: data.phone!,
+          city: data.city!,
+        },
+      }),
+    onSuccess: (response) => {
+      console.log("Order created successfully:", response); // Debug log
       clearCart();
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["cart"] });
@@ -79,7 +89,8 @@ export default function CheckoutPage() {
       });
       navigate("/orders");
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("Order creation error:", error); // Debug log
       toast({
         title: "Error",
         description: "Failed to place order. Please try again.",
@@ -90,7 +101,13 @@ export default function CheckoutPage() {
 
   const cardOrderMutation = useMutation({
     mutationFn: (data: CheckoutForm) =>
-      ordersService.createCheckoutSession(currentCartId!, { shippingAddress: { details: data.details!, phone: data.phone!, city: data.city! } }),
+      ordersService.createCheckoutSession(currentCartId!, {
+        shippingAddress: {
+          details: data.details!,
+          phone: data.phone!,
+          city: data.city!,
+        },
+      }),
     onSuccess: (data) => {
       window.location.href = data.session.url;
     },
@@ -172,7 +189,9 @@ export default function CheckoutPage() {
                       )}
                     >
                       <p className="font-medium">{address.name}</p>
-                      <p className="text-sm text-muted-foreground">{address.details}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {address.details}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {address.city} • {address.phone}
                       </p>
@@ -196,7 +215,9 @@ export default function CheckoutPage() {
                     {...register("details")}
                   />
                   {errors.details && (
-                    <p className="text-sm text-destructive">{errors.details.message}</p>
+                    <p className="text-sm text-destructive">
+                      {errors.details.message}
+                    </p>
                   )}
                 </div>
 
@@ -209,7 +230,9 @@ export default function CheckoutPage() {
                       {...register("city")}
                     />
                     {errors.city && (
-                      <p className="text-sm text-destructive">{errors.city.message}</p>
+                      <p className="text-sm text-destructive">
+                        {errors.city.message}
+                      </p>
                     )}
                   </div>
 
@@ -221,7 +244,9 @@ export default function CheckoutPage() {
                       {...register("phone")}
                     />
                     {errors.phone && (
-                      <p className="text-sm text-destructive">{errors.phone.message}</p>
+                      <p className="text-sm text-destructive">
+                        {errors.phone.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -328,8 +353,15 @@ export default function CheckoutPage() {
                   <span className="text-xl text-primary">${totalPrice}</span>
                 </div>
 
-                <Button type="submit" className="w-full" size="lg" disabled={isPending}>
-                  {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size="lg"
+                  disabled={isPending}
+                >
+                  {isPending && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
                   {paymentMethod === "cash" ? "Place Order" : "Pay Now"}
                 </Button>
               </CardContent>

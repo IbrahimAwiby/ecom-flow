@@ -11,29 +11,37 @@ import { cn } from "@/lib/utils";
 export default function OrdersPage() {
   const { isAuthenticated } = useAuthStore();
 
-  const { data, isLoading, error } = useQuery({
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["orders"],
     queryFn: () => ordersService.getUserOrders(),
     enabled: isAuthenticated,
   });
 
-  // Ensure orders is always an array
-  const orders = Array.isArray(data) ? data : [];
+  console.log("Orders response:", response); // Debug log
 
-  const getStatusIcon = (order: typeof orders[0]) => {
-    if (order.isDelivered) return <CheckCircle className="h-5 w-5 text-success" />;
+  // Ensure orders is always an array
+  const orders = Array.isArray(response) ? response : [];
+
+  const getStatusIcon = (order: (typeof orders)[0]) => {
+    if (order.isDelivered)
+      return <CheckCircle className="h-5 w-5 text-success" />;
     if (order.isPaid) return <Truck className="h-5 w-5 text-info" />;
     return <Clock className="h-5 w-5 text-warning" />;
   };
 
-  const getStatusText = (order: typeof orders[0]) => {
+  const getStatusText = (order: (typeof orders)[0]) => {
     if (order.isDelivered) return "Delivered";
     if (order.isPaid) return "Shipped";
     return "Processing";
   };
 
-  const getStatusColor = (order: typeof orders[0]) => {
-    if (order.isDelivered) return "bg-success/10 text-success border-success/20";
+  const getStatusColor = (order: (typeof orders)[0]) => {
+    if (order.isDelivered)
+      return "bg-success/10 text-success border-success/20";
     if (order.isPaid) return "bg-info/10 text-info border-info/20";
     return "bg-warning/10 text-warning border-warning/20";
   };
@@ -98,7 +106,9 @@ export default function OrdersPage() {
                     className={cn("gap-1 text-xs", getStatusColor(order))}
                   >
                     {getStatusIcon(order)}
-                    <span className="hidden xs:inline">{getStatusText(order)}</span>
+                    <span className="hidden xs:inline">
+                      {getStatusText(order)}
+                    </span>
                   </Badge>
                 </CardHeader>
                 <CardContent className="p-3 sm:p-4">

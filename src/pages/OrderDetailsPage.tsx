@@ -1,30 +1,44 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Package, MapPin, Phone, CreditCard, Banknote, Clock, CheckCircle, Truck } from "lucide-react";
+import {
+  ArrowLeft,
+  Package,
+  MapPin,
+  Phone,
+  CreditCard,
+  Banknote,
+  Clock,
+  CheckCircle,
+  Truck,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useAuthStore } from "@/store/auth.store";
 import { ordersService } from "@/services/orders.service";
 import { cn } from "@/lib/utils";
 
 export default function OrderDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const { isAuthenticated } = useAuthStore();
 
-  const { data: orders, isLoading } = useQuery({
-    queryKey: ["orders"],
-    queryFn: () => ordersService.getUserOrders(),
-    enabled: isAuthenticated,
+  const {
+    data: order,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["order", id],
+    queryFn: () => ordersService.getOrderById(id!),
+    enabled: !!id,
   });
 
-  const order = orders?.find((o) => o._id === id);
+  // Remove this line - you're already getting the order directly from useQuery
+  // const order = orders?.find((o) => o._id === id);
 
   const getStatusIcon = () => {
     if (!order) return null;
-    if (order.isDelivered) return <CheckCircle className="h-5 w-5 text-success" />;
+    if (order.isDelivered)
+      return <CheckCircle className="h-5 w-5 text-success" />;
     if (order.isPaid) return <Truck className="h-5 w-5 text-info" />;
     return <Clock className="h-5 w-5 text-warning" />;
   };
@@ -38,7 +52,8 @@ export default function OrderDetailsPage() {
 
   const getStatusColor = () => {
     if (!order) return "";
-    if (order.isDelivered) return "bg-success/10 text-success border-success/20";
+    if (order.isDelivered)
+      return "bg-success/10 text-success border-success/20";
     if (order.isPaid) return "bg-info/10 text-info border-info/20";
     return "bg-warning/10 text-warning border-warning/20";
   };
@@ -54,14 +69,16 @@ export default function OrderDetailsPage() {
     );
   }
 
-  if (!order) {
+  if (error || !order) {
     return (
       <div className="container flex min-h-[60vh] items-center justify-center px-4">
         <div className="text-center">
           <Package className="mx-auto mb-4 h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground" />
           <h1 className="text-xl sm:text-2xl font-bold">Order not found</h1>
           <p className="mt-2 text-sm sm:text-base text-muted-foreground">
-            The order you're looking for doesn't exist.
+            {error
+              ? "Error loading order"
+              : "The order you're looking for doesn't exist."}
           </p>
           <Button asChild className="mt-6">
             <Link to="/orders">View All Orders</Link>
@@ -101,7 +118,10 @@ export default function OrderDetailsPage() {
         </div>
         <Badge
           variant="outline"
-          className={cn("gap-1.5 self-start sm:self-auto text-xs sm:text-sm py-1 px-2 sm:px-3", getStatusColor())}
+          className={cn(
+            "gap-1.5 self-start sm:self-auto text-xs sm:text-sm py-1 px-2 sm:px-3",
+            getStatusColor()
+          )}
         >
           {getStatusIcon()}
           {getStatusText()}
@@ -166,7 +186,9 @@ export default function OrderDetailsPage() {
             <CardContent className="px-4 sm:px-6">
               <div className="space-y-2 text-sm sm:text-base">
                 <p>{order.shippingAddress.details}</p>
-                <p className="text-muted-foreground">{order.shippingAddress.city}</p>
+                <p className="text-muted-foreground">
+                  {order.shippingAddress.city}
+                </p>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span>{order.shippingAddress.phone}</span>
@@ -179,7 +201,9 @@ export default function OrderDetailsPage() {
         {/* Order Summary */}
         <Card>
           <CardHeader className="pb-3 sm:pb-4 px-4 sm:px-6">
-            <CardTitle className="text-base sm:text-lg">Order Summary</CardTitle>
+            <CardTitle className="text-base sm:text-lg">
+              Order Summary
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
             {/* Payment Method */}
@@ -190,10 +214,15 @@ export default function OrderDetailsPage() {
                 <CreditCard className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               )}
               <span className="text-sm sm:text-base">
-                {order.paymentMethodType === "cash" ? "Cash on Delivery" : "Paid Online"}
+                {order.paymentMethodType === "cash"
+                  ? "Cash on Delivery"
+                  : "Paid Online"}
               </span>
               {order.isPaid && (
-                <Badge variant="outline" className="bg-success/10 text-success border-success/20 text-xs">
+                <Badge
+                  variant="outline"
+                  className="bg-success/10 text-success border-success/20 text-xs"
+                >
                   Paid
                 </Badge>
               )}
@@ -205,15 +234,24 @@ export default function OrderDetailsPage() {
             <div className="space-y-2 text-sm sm:text-base">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>${order.totalOrderPrice - order.shippingPrice - order.taxPrice}</span>
+                <span>
+                  $
+                  {order.totalOrderPrice -
+                    (order.shippingPrice || 0) -
+                    (order.taxPrice || 0)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>{order.shippingPrice > 0 ? `$${order.shippingPrice}` : "Free"}</span>
+                <span>
+                  {(order.shippingPrice || 0) > 0
+                    ? `$${order.shippingPrice}`
+                    : "Free"}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Tax</span>
-                <span>${order.taxPrice}</span>
+                <span>${order.taxPrice || 0}</span>
               </div>
             </div>
 
