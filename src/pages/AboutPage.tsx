@@ -40,41 +40,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 
-const teamMembers = [
-  {
-    id: 1,
-    name: "Alex Morgan",
-    role: "CEO & Founder",
-    bio: "10+ years in e-commerce. Passionate about creating seamless shopping experiences.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
-    social: { twitter: "#", linkedin: "#" },
-  },
-  {
-    id: 2,
-    name: "Sarah Chen",
-    role: "Head of Design",
-    bio: "Former creative director at major retail brands. Focuses on user-centric design.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    social: { twitter: "#", linkedin: "#" },
-  },
-  {
-    id: 3,
-    name: "Marcus Johnson",
-    role: "CTO",
-    bio: "Tech innovator specializing in scalable e-commerce platforms and AI integration.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-    social: { twitter: "#", linkedin: "#" },
-  },
-  {
-    id: 4,
-    name: "Elena Rodriguez",
-    role: "Head of Customer Experience",
-    bio: "Dedicated to building lasting customer relationships and exceptional service.",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
-    social: { twitter: "#", linkedin: "#" },
-  },
-];
-
 const milestones = [
   {
     year: "2020",
@@ -329,65 +294,6 @@ export default function AboutPage() {
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
                   <p className="text-muted-foreground">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-12 sm:py-16 bg-muted/30">
-        <div className="container px-3 sm:px-4">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <Badge variant="outline" className="mb-4">
-              Meet Our Team
-            </Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              The People Behind ShopHub
-            </h2>
-            <p className="text-muted-foreground">
-              A diverse team of innovators, designers, and customer advocates.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member) => (
-              <Card
-                key={member.id}
-                className="text-center overflow-hidden group hover:shadow-xl transition-all"
-              >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden h-48">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-                  </div>
-                  <div className="p-6">
-                    <div className="relative -mt-12 mb-4">
-                      <Avatar className="h-20 w-20 border-4 border-background mx-auto">
-                        <AvatarImage src={member.image} />
-                        <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-1">
-                      {member.name}
-                    </h3>
-                    <p className="text-primary mb-3">{member.role}</p>
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {member.bio}
-                    </p>
-                    <div className="flex justify-center gap-2">
-                      <Button size="icon" variant="ghost" className="h-8 w-8">
-                        <Twitter className="h-4 w-4" />
-                      </Button>
-                      <Button size="icon" variant="ghost" className="h-8 w-8">
-                        <Linkedin className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
             ))}

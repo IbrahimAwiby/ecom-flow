@@ -6,7 +6,6 @@ export const ordersService = {
   getUserOrders: async (): Promise<Order[]> => {
     try {
       const { data } = await api.get(`/orders/`);
-      console.log("Orders API response:", data); // Debug log
 
       // The API might return data directly as array or wrapped in a data property
       if (Array.isArray(data)) {
