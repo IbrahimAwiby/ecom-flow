@@ -7,7 +7,13 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useAuthStore } from "@/store/auth.store";
@@ -16,7 +22,9 @@ import { authService } from "@/services/auth.service";
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
-  phone: z.string().regex(/^01[0125][0-9]{8}$/, "Please enter a valid Egyptian phone number"),
+  phone: z
+    .string()
+    .regex(/^01[0125][0-9]{8}$/, "Please enter a valid Egyptian phone number"),
 });
 
 type ProfileForm = z.infer<typeof profileSchema>;
@@ -64,7 +72,9 @@ export default function ProfilePage() {
     <div className="container max-w-2xl py-12">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold">My Profile</h1>
-        <p className="mt-2 text-muted-foreground">Manage your account settings</p>
+        <p className="mt-2 text-muted-foreground">
+          Manage your account settings
+        </p>
       </div>
 
       <div className="space-y-6">
@@ -91,7 +101,9 @@ export default function ProfilePage() {
                   />
                 </div>
                 {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
@@ -108,7 +120,9 @@ export default function ProfilePage() {
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
@@ -124,7 +138,9 @@ export default function ProfilePage() {
                   />
                 </div>
                 {errors.phone && (
-                  <p className="text-sm text-destructive">{errors.phone.message}</p>
+                  <p className="text-sm text-destructive">
+                    {errors.phone.message}
+                  </p>
                 )}
               </div>
 
@@ -145,7 +161,9 @@ export default function ProfilePage() {
               <Lock className="h-5 w-5" />
               Security
             </CardTitle>
-            <CardDescription>Manage your password and security settings</CardDescription>
+            <CardDescription>
+              Manage your password and security settings
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Button variant="outline" asChild>

@@ -7,12 +7,23 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { authService } from "@/services/auth.service";
 
+// Accept both 5 or 6 digits
 const verifyCodeSchema = z.object({
-  resetCode: z.string().length(6, "Reset code must be 6 digits"),
+  resetCode: z
+    .string()
+    .min(5, "Reset code must be at least 5 digits")
+    .max(6, "Reset code cannot exceed 6 digits")
+    .regex(/^[0-9]+$/, "Reset code must contain only numbers"),
 });
 
 type VerifyCodeForm = z.infer<typeof verifyCodeSchema>;
@@ -33,7 +44,7 @@ export default function VerifyResetCodePage() {
 
   const verifyMutation = useMutation({
     mutationFn: authService.verifyResetCode,
-    onSuccess: () => {
+    onSuccess: (response) => {
       toast({
         title: "Code verified!",
         description: "You can now reset your password",
@@ -43,14 +54,15 @@ export default function VerifyResetCodePage() {
     onError: (error: any) => {
       toast({
         title: "Invalid code",
-        description: error.response?.data?.message || "The code is invalid or expired",
+        description:
+          error.response?.data?.message || "The code is invalid or expired",
         variant: "destructive",
       });
     },
   });
 
   const onSubmit = (data: VerifyCodeForm) => {
-    verifyMutation.mutate({ resetCode: data.resetCode! });
+    verifyMutation.mutate({ resetCode: data.resetCode });
   };
 
   if (!email) {
@@ -62,9 +74,11 @@ export default function VerifyResetCodePage() {
     <div className="container flex min-h-[80vh] items-center justify-center py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="font-display text-2xl">Verify Reset Code</CardTitle>
+          <CardTitle className="font-display text-2xl">
+            Verify Reset Code
+          </CardTitle>
           <CardDescription>
-            Enter the 6-digit code sent to {email}
+            Enter the 5 or 6-digit code sent to {email}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -77,10 +91,21 @@ export default function VerifyResetCodePage() {
                 maxLength={6}
                 className="text-center text-2xl tracking-widest"
                 {...register("resetCode")}
+                onChange={(e) => {
+                  // Only allow numbers
+                  const value = e.target.value.replace(/\D/g, "");
+                  e.target.value = value;
+                }}
               />
               {errors.resetCode && (
-                <p className="text-sm text-destructive">{errors.resetCode.message}</p>
+                <p className="text-sm text-destructive">
+                  {errors.resetCode.message}
+                </p>
               )}
+            </div>
+
+            <div className="text-sm text-muted-foreground">
+              Enter the 5 or 6-digit code you received in your email
             </div>
 
             <Button

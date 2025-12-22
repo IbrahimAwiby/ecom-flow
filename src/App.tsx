@@ -28,6 +28,9 @@ import VerifyResetCodePage from "@/pages/auth/VerifyResetCodePage";
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage";
 import ChangePasswordPage from "@/pages/auth/ChangePasswordPage";
 import NotFound from "@/pages/NotFound";
+import FAQPage from "./pages/FAQPage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,40 +57,86 @@ const App = () => (
             <Route path="/categories/:id" element={<CategoryDetailsPage />} />
             <Route path="/brands" element={<BrandsPage />} />
             <Route path="/brands/:id" element={<BrandDetailsPage />} />
-            
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/about" element={<AboutPage />} />
+
             {/* Auth Routes */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/verify-reset-code" element={<VerifyResetCodePage />} />
+            <Route
+              path="/verify-reset-code"
+              element={<VerifyResetCodePage />}
+            />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
-            
+
             {/* Protected Routes */}
-            <Route path="/cart" element={
-              <ProtectedRoute><CartPage /></ProtectedRoute>
-            } />
-            <Route path="/wishlist" element={
-              <ProtectedRoute><WishlistPage /></ProtectedRoute>
-            } />
-            <Route path="/checkout" element={
-              <ProtectedRoute><CheckoutPage /></ProtectedRoute>
-            } />
-            <Route path="/orders" element={
-              <ProtectedRoute><OrdersPage /></ProtectedRoute>
-            } />
-            <Route path="/orders/:id" element={
-              <ProtectedRoute><OrderDetailsPage /></ProtectedRoute>
-            } />
-            <Route path="/addresses" element={
-              <ProtectedRoute><AddressesPage /></ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute><ProfilePage /></ProtectedRoute>
-            } />
-            <Route path="/change-password" element={
-              <ProtectedRoute><ChangePasswordPage /></ProtectedRoute>
-            } />
-            
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute>
+                  <CartPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/wishlist"
+              element={
+                <ProtectedRoute>
+                  <WishlistPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                <ProtectedRoute>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <OrdersPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/orders/:id"
+              element={
+                <ProtectedRoute>
+                  <OrderDetailsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/addresses"
+              element={
+                <ProtectedRoute>
+                  <AddressesPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/change-password"
+              element={
+                <ProtectedRoute>
+                  <ChangePasswordPage />
+                </ProtectedRoute>
+              }
+            />
+
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
           </Route>
