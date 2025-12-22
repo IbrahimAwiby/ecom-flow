@@ -86,10 +86,17 @@ export default function WishlistPage() {
     },
   });
 
+  // In WishlistPage component, update the handleMoveToCart function
   const handleMoveToCart = async (productId: string) => {
     try {
+      // Move to cart
       await addToCartMutation.mutateAsync(productId);
+
+      // Remove from wishlist
       removeMutation.mutate(productId);
+
+      // 🔥 CRITICAL FIX: Invalidate cart query to trigger refetch
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
     } catch (error) {
       // Error handled by mutation callbacks
     }

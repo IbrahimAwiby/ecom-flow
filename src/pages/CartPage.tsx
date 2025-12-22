@@ -12,9 +12,22 @@ import { cartService } from "@/services/cart.service";
 export default function CartPage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
-  const { cart, setCart, setCartCount, cartId, updateItemCount, removeItem, clearCart } = useCartStore();
+  const {
+    cart,
+    setCart,
+    setCartCount,
+    cartId,
+    updateItemCount,
+    removeItem,
+    clearCart,
+  } = useCartStore();
 
-  const { isLoading } = useQuery({
+  // Add refetchOnMount to ensure fresh data when navigating to cart page
+  const {
+    data: cartData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
       const data = await cartService.getCart();
@@ -22,21 +35,30 @@ export default function CartPage() {
       setCartCount(data.numOfCartItems);
       return data;
     },
+    refetchOnMount: true, // This ensures data is refetched when component mounts
+    refetchOnWindowFocus: true, // Optional: refetch when window regains focus
   });
+
+  // Use cartData from query instead of just cart store
+  const cartItems = cartData?.data?.products || [];
 
   const updateMutation = useMutation({
     mutationFn: ({ productId, count }: { productId: string; count: number }) =>
       cartService.updateQuantity(productId, count),
     onSuccess: (data, { productId, count }) => {
       updateItemCount(productId, count);
+      setCart(data.data); // Update store with fresh data
+      setCartCount(data.numOfCartItems);
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
 
   const removeMutation = useMutation({
     mutationFn: cartService.removeItem,
-    onSuccess: (_, productId) => {
+    onSuccess: (data, productId) => {
       removeItem(productId);
+      setCart(data.data); // Update store with fresh data
+      setCartCount(data.numOfCartItems);
       toast({ title: "Item removed from cart" });
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
@@ -44,14 +66,18 @@ export default function CartPage() {
 
   const clearMutation = useMutation({
     mutationFn: cartService.clearCart,
-    onSuccess: () => {
+    onSuccess: (data) => {
       clearCart();
       toast({ title: "Cart cleared" });
       queryClient.invalidateQueries({ queryKey: ["cart"] });
     },
   });
 
-  const handleUpdateQuantity = (productId: string, currentCount: number, delta: number) => {
+  const handleUpdateQuantity = (
+    productId: string,
+    currentCount: number,
+    delta: number
+  ) => {
     const newCount = currentCount + delta;
     if (newCount < 1) return;
     updateMutation.mutate({ productId, count: newCount });
@@ -73,28 +99,39 @@ export default function CartPage() {
     );
   }
 
-  const cartItems = cart?.products || [];
-
   return (
     <div className="container py-6 sm:py-8">
       <div className="mb-6 sm:mb-8 flex flex-col xs:flex-row xs:items-center xs:justify-between gap-4">
         <div className="flex items-center gap-3">
           <ShoppingCart className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
           <div>
-            <h1 className="font-display text-2xl sm:text-3xl font-bold">Shopping Cart</h1>
-            <p className="text-sm sm:text-base text-muted-foreground">{cartItems.length} items</p>
+            <h1 className="font-display text-2xl sm:text-3xl font-bold">
+              Shopping Cart
+            </h1>
+            <p className="text-sm sm:text-base text-muted-foreground">
+              {cartItems.length} items
+            </p>
           </div>
         </div>
         {cartItems.length > 0 && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => clearMutation.mutate()}
-            disabled={clearMutation.isPending}
-          >
-            <Trash2 className="mr-2 h-4 w-4" />
-            Clear Cart
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => refetch()} // Add manual refresh button
+            >
+              Refresh Cart
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => clearMutation.mutate()}
+              disabled={clearMutation.isPending}
+            >
+              <Trash2 className="mr-2 h-4 w-4" />
+              Clear Cart
+            </Button>
+          </div>
         )}
       </div>
 
@@ -145,7 +182,11 @@ export default function CartPage() {
                           size="icon"
                           className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() =>
-                            handleUpdateQuantity(item.product._id, item.count, -1)
+                            handleUpdateQuantity(
+                              item.product._id,
+                              item.count,
+                              -1
+                            )
                           }
                           disabled={updateMutation.isPending}
                         >
@@ -159,7 +200,11 @@ export default function CartPage() {
                           size="icon"
                           className="h-7 w-7 sm:h-8 sm:w-8"
                           onClick={() =>
-                            handleUpdateQuantity(item.product._id, item.count, 1)
+                            handleUpdateQuantity(
+                              item.product._id,
+                              item.count,
+                              1
+                            )
                           }
                           disabled={updateMutation.isPending}
                         >
@@ -174,7 +219,9 @@ export default function CartPage() {
                           variant="ghost"
                           size="icon"
                           className="h-7 w-7 sm:h-8 sm:w-8"
-                          onClick={() => removeMutation.mutate(item.product._id)}
+                          onClick={() =>
+                            removeMutation.mutate(item.product._id)
+                          }
                           disabled={removeMutation.isPending}
                         >
                           <Trash2 className="h-4 w-4 text-destructive" />
@@ -196,7 +243,7 @@ export default function CartPage() {
               <CardContent className="space-y-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span>${cart?.totalCartPrice || 0}</span>
+                  <span>${cartData?.data?.totalCartPrice || 0}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipping</span>
@@ -206,7 +253,7 @@ export default function CartPage() {
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
                   <span className="text-xl text-primary">
-                    ${cart?.totalCartPrice || 0}
+                    ${cartData?.data?.totalCartPrice || 0}
                   </span>
                 </div>
                 <Button asChild className="w-full" size="lg">
