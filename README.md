@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
+# 🛍️ ShopHub - Modern E-Commerce Platform
 
-## Project info
+**ShopHub** is a modern **E-Commerce Frontend Web Application** developed as a **Final University Project**.  
+The project demonstrates the use of modern frontend technologies to build a scalable, responsive, and high-performance shopping platform.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🔗 **Live Demo:** [ecom-flow-five.vercel.app](https://ecom-flow-five.vercel.app)  
+🔗 **GitHub Repository:** [github.com/IbrahimAwiby/ecom-flow](https://github.com/IbrahimAwiby/ecom-flow)  
+🎓 **University Project:** Final Year Project 2024
 
-## How can I edit this code?
+## ✨ Features
 
-There are several ways of editing your application.
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 🛒 **Product Catalog** | ✅ Live | Filtering, sorting & search |
+| 🛍️ **Shopping Cart** | ✅ Live | Real-time updates & management |
+| ❤️ **Wishlist** | ✅ Live | Save favorite products |
+| 🔐 **User Auth** | ✅ Live | Secure login/register |
+| 📱 **Responsive** | ✅ Live | Mobile-first design |
+| 🎯 **Product Details** | ✅ Live | Full product information |
+| ⚡ **Fast Loading** | ✅ Live | Optimized performance |
 
-**Use Lovable**
+## 🏗️ Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+<div align="center">
 
-Changes made via Lovable will be committed automatically to this repo.
+| Frontend | Tools & Libraries | Styling |
+|----------|-------------------|---------|
+| ![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react) | ![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite) | ![Tailwind](https://img.shields.io/badge/Tailwind-3.3-38B2AC?logo=tailwindcss) |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript) | ![Zustand](https://img.shields.io/badge/Zustand-4.4-000?logo=react) | ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-0.8-000?logo=react) |
+| ![React Router](https://img.shields.io/badge/React_Router-6.21-CA4245?logo=reactrouter) | ![TanStack Query](https://img.shields.io/badge/Query-4.36-FF4154?logo=reactquery) | ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-0.300-000?logo=react) |
 
-**Use your preferred IDE**
+</div>
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Quick Start
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
+- Node.js (v18 or higher)
+- npm, yarn, or pnpm
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# 1. Clone repository
+git clone https://github.com/IbrahimAwiby/ecom-flow.git
+cd ecom-flow
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Install dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Configure environment
+cp .env.example .env.local
+# Edit .env.local with your settings
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Start development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# 5. Open in browser
+# http://localhost:5173

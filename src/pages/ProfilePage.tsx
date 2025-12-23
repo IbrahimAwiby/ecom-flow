@@ -42,7 +42,7 @@ export default function ProfilePage() {
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
-      phone: "",
+      phone: user?.phone || "",
     },
   });
 
