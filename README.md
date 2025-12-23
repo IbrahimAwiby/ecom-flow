@@ -3,58 +3,63 @@
 **ShopHub** is a modern **E-Commerce Frontend Web Application** developed as a **Final University Project**.  
 The project demonstrates the use of modern frontend technologies to build a scalable, responsive, and high-performance shopping platform.
 
-🔗 **Live Demo:** https://ecom-flow-five.vercel.app  
-🔗 **GitHub Repository:** https://github.com/IbrahimAwiby/ecom-flow  
+🔗 **Live Demo:** [ecom-flow-five.vercel.app](https://ecom-flow-five.vercel.app)  
+🔗 **GitHub Repository:** [github.com/IbrahimAwiby/ecom-flow](https://github.com/IbrahimAwiby/ecom-flow)  
+🎓 **University Project:** Final Year Project 2024
 
----
+<div align="center">
 
-## 🎓 Project Overview
+![ShopHub Homepage](https://via.placeholder.com/1200x600/3b82f6/ffffff?text=ShopHub+Homepage+Screenshot)
+*Screenshot: ShopHub Home Page - Modern E-Commerce Interface*
 
-This project was created as a **final-year university project** to apply theoretical knowledge in a real-world web application. ShopHub showcases modern frontend development practices, responsive design principles, and clean architecture patterns.
+</div>
 
-**Key Learning Outcomes:**
-- Component-based architecture with React
-- Type-safe development with TypeScript
-- Responsive UI/UX design implementation
-- State management and API integration
-- Modern build tools and optimization techniques
+## ✨ Features
 
----
+| Feature | Status | Description |
+|---------|--------|-------------|
+| 🛒 **Product Catalog** | ✅ Live | Filtering, sorting & search |
+| 🛍️ **Shopping Cart** | ✅ Live | Real-time updates & management |
+| ❤️ **Wishlist** | ✅ Live | Save favorite products |
+| 🔐 **User Auth** | ✅ Live | Secure login/register |
+| 📱 **Responsive** | ✅ Live | Mobile-first design |
+| 🎯 **Product Details** | ✅ Live | Full product information |
+| ⚡ **Fast Loading** | ✅ Live | Optimized performance |
 
-## 🚀 Technologies Used
+## 🏗️ Tech Stack
 
-| Technology | Purpose | Version |
-|------------|---------|---------|
-| ⚡ **Vite** | Fast build tool and development server | 4.x |
-| ⚛️ **React** | UI library for building components | 18.x |
-| 🟦 **TypeScript** | Type-safe JavaScript development | 5.x |
-| 🎨 **Tailwind CSS** | Utility-first CSS framework | 3.x |
-| 🧩 **shadcn/ui** | Reusable UI components | Latest |
-| 🔄 **React Router DOM** | Client-side routing | 6.x |
-| 📡 **TanStack Query** | Server state management | 4.x |
-| 🏪 **Zustand** | Lightweight state management | 4.x |
-| 📝 **React Hook Form** | Form handling with validation | 7.x |
-| ✅ **Zod** | Schema validation | 3.x |
-| 🔗 **Axios** | HTTP client for API requests | 1.x |
-| ✨ **Lucide React** | Beautiful icon library | Latest |
+<div align="center">
 
----
+| Frontend | Tools & Libraries | Styling |
+|----------|-------------------|---------|
+| ![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react) | ![Vite](https://img.shields.io/badge/Vite-4.0-646CFF?logo=vite) | ![Tailwind](https://img.shields.io/badge/Tailwind-3.3-38B2AC?logo=tailwindcss) |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript) | ![Zustand](https://img.shields.io/badge/Zustand-4.4-000?logo=react) | ![shadcn/ui](https://img.shields.io/badge/shadcn/ui-0.8-000?logo=react) |
+| ![React Router](https://img.shields.io/badge/React_Router-6.21-CA4245?logo=reactrouter) | ![TanStack Query](https://img.shields.io/badge/Query-4.36-FF4154?logo=reactquery) | ![Lucide Icons](https://img.shields.io/badge/Lucide_Icons-0.300-000?logo=react) |
 
-## 🛠️ Getting Started
+</div>
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- **Node.js** (v18 or higher)
-- **npm** or **yarn** or **pnpm**
+- Node.js (v18 or higher)
+- npm, yarn, or pnpm
 
-### Installation & Setup
+### Installation
 
-1. **Clone the Repository**
 ```bash
+# 1. Clone repository
 git clone https://github.com/IbrahimAwiby/ecom-flow.git
 cd ecom-flow
 
+# 2. Install dependencies
 npm install
-# or
-yarn install
-# or
-pnpm install
+
+# 3. Configure environment
+cp .env.example .env.local
+# Edit .env.local with your settings
+
+# 4. Start development server
+npm run dev
+
+# 5. Open in browser
+# http://localhost:5173
