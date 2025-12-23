@@ -7,13 +7,6 @@ The project demonstrates the use of modern frontend technologies to build a scal
 🔗 **GitHub Repository:** [github.com/IbrahimAwiby/ecom-flow](https://github.com/IbrahimAwiby/ecom-flow)  
 🎓 **University Project:** Final Year Project 2024
 
-<div align="center">
-
-![ShopHub Homepage](https://via.placeholder.com/1200x600/3b82f6/ffffff?text=ShopHub+Homepage+Screenshot)
-*Screenshot: ShopHub Home Page - Modern E-Commerce Interface*
-
-</div>
-
 ## ✨ Features
 
 | Feature | Status | Description |
