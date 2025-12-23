@@ -1,73 +1,125 @@
-# Welcome to your Lovable project
+🛒 ShopHub E-Commerce
 
-## Project info
+ShopHub is a modern E-Commerce Frontend Web Application developed as a Final University Project.
+The project demonstrates the use of modern frontend technologies to build a scalable, responsive, and high-performance shopping platform.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🔗 Live Demo (Vercel):
+https://ecom-flow-five.vercel.app
 
-## How can I edit this code?
+🔗 GitHub Repository:
+https://github.com/IbrahimAwiby/ecom-flow
 
-There are several ways of editing your application.
+🎓 Project Overview
 
-**Use Lovable**
+This project was created as a graduation / final-year university project with the goal of applying theoretical knowledge to a real-world web application.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+The focus areas include:
 
-Changes made via Lovable will be committed automatically to this repo.
+Component-based architecture
 
-**Use your preferred IDE**
+Clean and maintainable code
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Responsive UI/UX design
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Performance optimization
 
-Follow these steps:
+Modern frontend tooling
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+🚀 Technologies Used
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+This project is built using:
 
-# Step 3: Install the necessary dependencies.
-npm i
+⚡ Vite – Fast development and build tool
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+⚛️ React – Component-based UI library
+
+🟦 TypeScript – Type-safe JavaScript
+
+🎨 Tailwind CSS – Utility-first CSS framework
+
+🧩 shadcn/ui – Reusable and accessible UI components
+
+📦 Getting Started (Run Locally)
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js
+
+npm
+
+Clone the Repository
+git clone https://github.com/IbrahimAwiby/ecom-flow.git
+
+Navigate to the Project Directory
+cd ecom-flow
+
+Install Dependencies
+npm install
+
+Start the Development Server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+The application will be available at:
 
-**Use GitHub Codespaces**
+http://localhost:5173
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+🧱 Project Structure
+src/
+├── components/      # Reusable UI components
+├── pages/           # Application pages
+├── hooks/           # Custom React hooks
+├── lib/             # Utility & helper functions
+├── styles/          # Global styles
+└── main.tsx         # Application entry point
 
-## What technologies are used for this project?
+✨ Features
 
-This project is built with:
+Fully responsive design (mobile & desktop)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Modern and clean UI
 
-## How can I deploy this project?
+Reusable component architecture
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Fast loading and optimized performance
 
-## Can I connect a custom domain to my Lovable project?
+Easy to extend with backend services in the future
 
-Yes, you can!
+🌍 Deployment
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The project is deployed using Vercel.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Deployment Steps
+
+Push the project to GitHub
+
+Import the repository into Vercel
+
+Deploy using default Vite settings
+
+Vercel automatically rebuilds and redeploys the project on every update.
+
+🔮 Future Enhancements
+
+Backend integration (API & Database)
+
+Authentication & Authorization
+
+Shopping cart & checkout logic
+
+Payment gateway integration
+
+Admin dashboard
+
+👤 Author
+
+Ibrahim Hassan
+Final Year University Student – Frontend Developer
+
+🔗 GitHub:
+https://github.com/IbrahimAwiby
+
+📄 License
+
+This project was developed for educational purposes as part of a Final University Project.
