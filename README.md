@@ -1,125 +1,60 @@
-🛒 ShopHub E-Commerce
+# 🛍️ ShopHub - Modern E-Commerce Platform
 
-ShopHub is a modern E-Commerce Frontend Web Application developed as a Final University Project.
+**ShopHub** is a modern **E-Commerce Frontend Web Application** developed as a **Final University Project**.  
 The project demonstrates the use of modern frontend technologies to build a scalable, responsive, and high-performance shopping platform.
 
-🔗 Live Demo (Vercel):
-https://ecom-flow-five.vercel.app
+🔗 **Live Demo:** https://ecom-flow-five.vercel.app  
+🔗 **GitHub Repository:** https://github.com/IbrahimAwiby/ecom-flow  
 
-🔗 GitHub Repository:
-https://github.com/IbrahimAwiby/ecom-flow
+---
 
-🎓 Project Overview
+## 🎓 Project Overview
 
-This project was created as a graduation / final-year university project with the goal of applying theoretical knowledge to a real-world web application.
+This project was created as a **final-year university project** to apply theoretical knowledge in a real-world web application. ShopHub showcases modern frontend development practices, responsive design principles, and clean architecture patterns.
 
-The focus areas include:
+**Key Learning Outcomes:**
+- Component-based architecture with React
+- Type-safe development with TypeScript
+- Responsive UI/UX design implementation
+- State management and API integration
+- Modern build tools and optimization techniques
 
-Component-based architecture
+---
 
-Clean and maintainable code
+## 🚀 Technologies Used
 
-Responsive UI/UX design
+| Technology | Purpose | Version |
+|------------|---------|---------|
+| ⚡ **Vite** | Fast build tool and development server | 4.x |
+| ⚛️ **React** | UI library for building components | 18.x |
+| 🟦 **TypeScript** | Type-safe JavaScript development | 5.x |
+| 🎨 **Tailwind CSS** | Utility-first CSS framework | 3.x |
+| 🧩 **shadcn/ui** | Reusable UI components | Latest |
+| 🔄 **React Router DOM** | Client-side routing | 6.x |
+| 📡 **TanStack Query** | Server state management | 4.x |
+| 🏪 **Zustand** | Lightweight state management | 4.x |
+| 📝 **React Hook Form** | Form handling with validation | 7.x |
+| ✅ **Zod** | Schema validation | 3.x |
+| 🔗 **Axios** | HTTP client for API requests | 1.x |
+| ✨ **Lucide React** | Beautiful icon library | Latest |
 
-Performance optimization
+---
 
-Modern frontend tooling
+## 🛠️ Getting Started
 
-🚀 Technologies Used
+### Prerequisites
+- **Node.js** (v18 or higher)
+- **npm** or **yarn** or **pnpm**
 
-This project is built using:
+### Installation & Setup
 
-⚡ Vite – Fast development and build tool
-
-⚛️ React – Component-based UI library
-
-🟦 TypeScript – Type-safe JavaScript
-
-🎨 Tailwind CSS – Utility-first CSS framework
-
-🧩 shadcn/ui – Reusable and accessible UI components
-
-📦 Getting Started (Run Locally)
-Prerequisites
-
-Make sure you have the following installed:
-
-Node.js
-
-npm
-
-Clone the Repository
+1. **Clone the Repository**
+```bash
 git clone https://github.com/IbrahimAwiby/ecom-flow.git
-
-Navigate to the Project Directory
 cd ecom-flow
 
-Install Dependencies
 npm install
-
-Start the Development Server
-npm run dev
-
-
-The application will be available at:
-
-http://localhost:5173
-
-🧱 Project Structure
-src/
-├── components/      # Reusable UI components
-├── pages/           # Application pages
-├── hooks/           # Custom React hooks
-├── lib/             # Utility & helper functions
-├── styles/          # Global styles
-└── main.tsx         # Application entry point
-
-✨ Features
-
-Fully responsive design (mobile & desktop)
-
-Modern and clean UI
-
-Reusable component architecture
-
-Fast loading and optimized performance
-
-Easy to extend with backend services in the future
-
-🌍 Deployment
-
-The project is deployed using Vercel.
-
-Deployment Steps
-
-Push the project to GitHub
-
-Import the repository into Vercel
-
-Deploy using default Vite settings
-
-Vercel automatically rebuilds and redeploys the project on every update.
-
-🔮 Future Enhancements
-
-Backend integration (API & Database)
-
-Authentication & Authorization
-
-Shopping cart & checkout logic
-
-Payment gateway integration
-
-Admin dashboard
-
-👤 Author
-
-Ibrahim Hassan
-Final Year University Student – Frontend Developer
-
-🔗 GitHub:
-https://github.com/IbrahimAwiby
-
-📄 License
-
-This project was developed for educational purposes as part of a Final University Project.
+# or
+yarn install
+# or
+pnpm install
